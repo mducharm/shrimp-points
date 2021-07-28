@@ -1,0 +1,39 @@
+version: "3.3"
+
+services: 
+    db: 
+        container_name: sp-db
+        restart: always
+        image: sp-db
+        build:
+            context: ./db
+        volumes: 
+            - db:/var/lib/postgresql/data
+        env_file: 
+            - ./.env
+        networks: 
+            - network
+        ports:
+            - 5432:5432
+
+    graphql:
+        container_name: sp-api
+        restart: always
+        image: sp-api
+        build:
+            context: ./api
+        env_file: 
+            - ./.env
+        depends_on: 
+            - db
+        networks: 
+            - network
+        ports:
+            - 3000:3000
+
+networks: 
+    network:
+
+volumes: 
+    db:
+        
