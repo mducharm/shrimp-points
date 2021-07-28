@@ -10,7 +10,7 @@ create type app_public.feed_event as enum (
 create table if not exists app_public.feed_entry (
    id serial primary key,
    group_id integer references app_public.group,
-   event feed_event not null,
+   event app_public.feed_event not null,
    created_at timestamp default now(),
    updated_at timestamp default now()
 );
