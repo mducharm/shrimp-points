@@ -25,7 +25,7 @@ returns app_public.person as $$
             (first_name, last_name)
         returning * into person;
 
-        insert into app_private.person_account
+        insert into app_private.account
             (person_id, email, password_hash)
         values
             (person.id, email, crypt(password, gen_salt('bf')));
@@ -38,10 +38,10 @@ $$ language plpgsql strict security definer;
 
 -- * Authenticate
 create function app_public.authenticate(email text, password text) returns app_public.jwt_token as $$
-    declare account app_private.person_account;
+    declare account app_private.account;
     begin 
         select a.* into account
-        from app_private.person_account as a
+        from app_private.account as a
         where a.email = $1;
 
         if account.password_hash = crypt(password, account.password_hash)
