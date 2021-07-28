@@ -22,8 +22,8 @@ create policy select_task_completed on app_public.task_completed for select usin
 
 -- * insert
 create policy insert_group on app_public.group for insert to sp_person
-    with check(created_by = current_person_id()
-        and len(select id from app_public.group where created_by = current_person_id()) = 0);
+    with check(created_by = app_public.current_person_id()
+        and exists(select 1 from app_public.group where created_by = app_public.current_person_id()));
 
 
 -- * update
