@@ -11,8 +11,8 @@ app.use(postgraphile(
         graphiql: true,
         enhanceGraphiql: true,
         retryOnInitFail: true,
-        // pgDefaultRole: process.env.DEFAULT_ROLE || "sp_anon",
-        // jwtPgTypeIdentifier: process.env.JWT_TYPE_IDENTIFIER || "app_public.jwt_token",
+        pgDefaultRole: process.env.DEFAULT_ROLE || "sp_anon",
+        jwtPgTypeIdentifier: process.env.JWT_TYPE_IDENTIFIER || "app_public.jwt_token",
         jwtSecret: process.env.JWT_SECRET
     }
 ));
