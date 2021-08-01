@@ -5,6 +5,15 @@ import reactRefresh from '@vitejs/plugin-react-refresh'
 export default defineConfig({
   plugins: [reactRefresh()],
   server: {
-    port: 3001
+    port: 3001,
+    proxy: {
+      '/graphql': {
+           target: 'http://localhost:3000',
+           changeOrigin: true,
+           secure: false,      
+       }
   }
+  },
+  
+  
 })
