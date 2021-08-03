@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { Store } from "./store/store";
 
 const client = new ApolloClient({
-  // uri: "https://48p1r2roz4.sse.codesandbox.io",
   uri: import.meta.env.VITE_API_URL,
   cache: new InMemoryCache(),
 });
@@ -13,7 +13,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <Store>
+        <App />
+      </Store>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
