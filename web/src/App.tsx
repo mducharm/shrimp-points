@@ -4,8 +4,8 @@ import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -26,10 +26,10 @@ function App() {
         </nav>
         <Switch>
           <Route path="/signup">
-            <SignUp />
+            <Register />
           </Route>
           <Route path="/signin">
-            <SignIn />
+            <Login />
           </Route>
           <Route path="/about">
             <About />
