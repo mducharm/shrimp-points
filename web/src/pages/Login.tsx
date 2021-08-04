@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
   const { state, dispatch } = useStore();
+  const [ loginAttempted, setLoginAttempted ] = useState(false);
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -79,13 +80,18 @@ export default function Login() {
     return <Redirect to="/profile" />;
   }
 
-  const failedLogin = error || data?.authenticate?.jwtToken == null;
+  const failedLogin = (error || data?.authenticate?.jwtToken == null) && loginAttempted;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setFormValues((previousValues) => ({
       ...previousValues,
       [e.target.name]: e.target.value,
     }));
+
+  const attemptLogin = () => {
+    login();
+    setLoginAttempted(true);
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -138,7 +144,7 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={() => login()}
+            onClick={attemptLogin}
           >
             Sign In
           </Button>
