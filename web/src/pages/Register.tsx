@@ -110,7 +110,7 @@ export default function Register() {
     login();
     if (authData) {
       dispatch({ type: ActionKind.LOGIN, authToken: authData });
-      return <Redirect to="/about"/>
+      return <Redirect to="/dashboard"/>
     }
   }
 

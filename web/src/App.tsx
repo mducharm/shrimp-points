@@ -15,10 +15,17 @@ import Login from "./pages/Login";
 import { useStore } from "./store/store";
 import Profile from "./pages/Profile";
 import { ActionKind } from "./store/actions";
+import { Settings } from "./pages/Settings";
+import { Dashboard } from "./pages/Dashboard";
+import { ManageTasksForm } from "./pages/ManageTasksForm";
+import { CompleteTaskForm } from "./pages/CompleteTasksForm";
 
 function LoggedInLinks() {
   return (
     <>
+      <li>
+        <Link to="/dashboard">Dashboard</Link>
+      </li>
       <li>
         <Link to="/profile">Profile</Link>
       </li>
@@ -82,6 +89,18 @@ function App() {
           </Route>
           <Route path="/logout">
             <Logout />
+          </Route>
+          <Route path="/dashboard">
+            {state.isLoggedIn ? <Dashboard /> : <Redirect to="login" />}
+          </Route>
+          <Route path="/manage-tasks">
+            {state.isLoggedIn ? <ManageTasksForm /> : <Redirect to="login" />}
+          </Route>
+          <Route path="/complete-task">
+            {state.isLoggedIn ? <CompleteTaskForm /> : <Redirect to="login" />}
+          </Route>
+          <Route path="/settings">
+            {state.isLoggedIn ? <Settings /> : <Redirect to="login" />}
           </Route>
           <Route path="/profile">
             {state.isLoggedIn ? <Profile /> : <Redirect to="login" />}
