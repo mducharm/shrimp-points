@@ -7,7 +7,7 @@ export type State = {
     authToken: string,
 };
 
-enum ActionKind {
+export enum ActionKind {
     LOGIN = 'login',
     LOGOUT = 'logout',
 }
@@ -20,7 +20,7 @@ export type Action =
 export function storeReducer(state: State, action: Action): State {
     switch (action.type) {
         case ActionKind.LOGIN:
-            return { ...state, authToken: action.authToken }
+            return { ...state, isLoggedIn: true, authToken: action.authToken }
         case ActionKind.LOGOUT:
             return { ...state, isLoggedIn: false, authToken: "" }
         default:

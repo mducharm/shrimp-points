@@ -1,4 +1,4 @@
-import React, { ReactNode, Reducer, useContext, useReducer } from "react";
+import React, { Dispatch, ReactNode, Reducer, useContext, useReducer } from "react";
 import { createContext } from "react";
 import { Action, State, storeReducer } from "./actions";
 
@@ -13,8 +13,8 @@ const initialState = {
   authToken: "",
 } as State;
 
-export const StateContext = createContext({});
-export const DispatchContext = createContext({});
+export const StateContext = createContext<State>({} as State);
+export const DispatchContext = createContext<Dispatch<Action>>({} as Dispatch<Action>);
 
 export function Store({ children }: Props) {
   const [state, dispatch] = useReducer(storeReducer, initialState);
