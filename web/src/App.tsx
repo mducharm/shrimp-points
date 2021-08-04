@@ -13,7 +13,6 @@ import About from "./pages/About";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import { useStore } from "./store/store";
-import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./pages/Profile";
 import { ActionKind } from "./store/actions";
 
@@ -22,6 +21,15 @@ function LoggedInLinks() {
     <>
       <li>
         <Link to="/profile">Profile</Link>
+      </li>
+      <li>
+        <Link to="/manage-tasks">Manage Tasks</Link>
+      </li>
+      <li>
+        <Link to="/complete-task">Complete Task</Link>
+      </li>
+      <li>
+        <Link to="/settings">Settings</Link>
       </li>
       <li>
         <Link to="/logout">Logout</Link>
