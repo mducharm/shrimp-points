@@ -48,15 +48,19 @@ export default function Login() {
     password: "",
   });
 
-  // useEffect(() => {
-  //   console.log(formValues);
-  //   console.log(state);
-  // });
+  useEffect(() => {
+    console.log(formValues);
+    console.log(state);
+  });
 
   const [login, { data, loading, error }] = useMutation(AUTHENTICATE, {
     variables: {
       email: formValues.email,
       password: formValues.password,
+    },
+    onCompleted(d) {
+      console.log(d);
+      
     },
     onError({ graphQLErrors, networkError }) {
       if (graphQLErrors) {
@@ -70,10 +74,12 @@ export default function Login() {
     },
   });
 
-  if (data) {
+  if (data?.authenticate?.jwtToken != null) {
     dispatch({ type: ActionKind.LOGIN, authToken: data.authenticate.jwtToken });
     return <Redirect to="/profile" />;
   }
+
+  const failedLogin = error || data?.authenticate?.jwtToken == null;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setFormValues((previousValues) => ({
@@ -85,7 +91,7 @@ export default function Login() {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       {loading && <h1>Loading...</h1>}
-      {error && <h1>Error: {error.message}</h1>}
+      {failedLogin && <h1>Failed to log in.</h1>}
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
