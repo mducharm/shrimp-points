@@ -5,7 +5,6 @@ import Main from "../layouts/Main";
 const About: FC = () => (
   <Main>
     <p>About</p>
-    <ExchangeRates></ExchangeRates>
   </Main>
 );
 
