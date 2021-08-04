@@ -17,12 +17,14 @@ export const AUTHENTICATE = gql`
   }
 `;
 
-export const REGISER = gql`
+export const REGISTER = gql`
   mutation Register($displayName: String!, $email: String!, $password: String!) {
-    registerPerson(input: {displayName: $displayName, email: $email, password: $password}) {
-      person {
-        displayName
-      }
+  registerPerson(
+    input: {displayName: $displayName, email: $email, password: $password}
+  ) {
+    person {
+      id
     }
   }
+}
 `;
