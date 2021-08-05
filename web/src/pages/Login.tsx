@@ -16,7 +16,7 @@ import { useMutation } from "@apollo/client";
 import { AUTHENTICATE, REGISTER } from "../graphql/mutations";
 import { useStore } from "../store/store";
 import { ActionKind } from "../store/actions";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { ChangeEvent } from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -43,16 +43,17 @@ export default function Login() {
   const classes = useStyles();
   const { state, dispatch } = useStore();
   const [ loginAttempted, setLoginAttempted ] = useState(false);
+  const history = useHistory();
 
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
 
-  useEffect(() => {
-    console.log(formValues);
-    console.log(state);
-  });
+  // useEffect(() => {
+  //   console.log(formValues);
+  //   console.log(state);
+  // });
 
   const [login, { data, loading, error }] = useMutation(AUTHENTICATE, {
     variables: {
@@ -77,7 +78,7 @@ export default function Login() {
 
   if (data?.authenticate?.jwtToken != null) {
     dispatch({ type: ActionKind.LOGIN, authToken: data.authenticate.jwtToken });
-    return <Redirect to="/" />;
+    history.push("/");
   }
 
   const failedLogin = (error || data?.authenticate?.jwtToken == null) && loginAttempted;

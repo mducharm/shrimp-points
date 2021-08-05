@@ -17,7 +17,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useStore } from "../store/store";
 import { ActionKind } from "../store/actions";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -55,6 +55,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
   const classes = useStyles();
   const { dispatch } = useStore();
+  const history = useHistory();
 
   const [formValues, setFormValues] = useState({
     displayName: "",
@@ -110,7 +111,7 @@ export default function Register() {
     login();
     if (authData) {
       dispatch({ type: ActionKind.LOGIN, authToken: authData });
-      return <Redirect to="/dashboard"/>
+      history.push("/");
     }
   }
 
