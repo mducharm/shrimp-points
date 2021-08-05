@@ -1,8 +1,9 @@
 import React from "react";
+import Main from "../layouts/Main";
 
 export function Settings() {
-    return <div>
+    return <Main>
         <h1>Settings</h1>
-    </div>
+    </Main>
     
 }

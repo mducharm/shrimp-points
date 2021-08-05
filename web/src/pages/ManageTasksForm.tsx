@@ -1,9 +1,10 @@
 import React from "react";
+import Main from "../layouts/Main";
 
 export function ManageTasksForm() {
-    return <div>
+    return <Main>
         <h1>Manage Tasks</h1>
         <form></form>
-    </div>
+    </Main>
     
 }
