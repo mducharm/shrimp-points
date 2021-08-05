@@ -19,6 +19,7 @@ import { Settings } from "./pages/Settings";
 import { Dashboard } from "./pages/Dashboard";
 import { ManageTasksForm } from "./pages/ManageTasksForm";
 import { CompleteTaskForm } from "./pages/CompleteTasksForm";
+import { Group } from "./pages/ManageGroup";
 
 function LoggedInLinks() {
   return (
@@ -91,16 +92,19 @@ function App() {
             <Logout />
           </Route>
           <Route path="/manage-tasks">
-            {state.isLoggedIn ? <ManageTasksForm /> : <Redirect to="login" />}
+            {state.isLoggedIn ? <ManageTasksForm /> : <Redirect to="/login" />}
+          </Route>
+          <Route path="/group">
+            {state.isLoggedIn ? <Group /> : <Redirect to="/group" />}
           </Route>
           <Route path="/complete-task">
-            {state.isLoggedIn ? <CompleteTaskForm /> : <Redirect to="login" />}
+            {state.isLoggedIn ? <CompleteTaskForm /> : <Redirect to="/login" />}
           </Route>
           <Route path="/settings">
-            {state.isLoggedIn ? <Settings /> : <Redirect to="login" />}
+            {state.isLoggedIn ? <Settings /> : <Redirect to="/login" />}
           </Route>
           <Route path="/profile">
-            {state.isLoggedIn ? <Profile /> : <Redirect to="login" />}
+            {state.isLoggedIn ? <Profile /> : <Redirect to="/login" />}
           </Route>
           <Route path="/about">
             <About />

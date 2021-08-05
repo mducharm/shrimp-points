@@ -25,6 +25,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import GroupIcon from "@material-ui/icons/Group";
 import SettingsIcon from "@material-ui/icons/Settings";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 type ToggleDrawer = (open: boolean) => (event: any) => void;
 
@@ -79,7 +80,6 @@ export function Menu() {
           <Typography variant="h6" className={classes.title}>
             Shrimp Points
           </Typography>
-          <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       <SwipeableDrawer
@@ -123,7 +123,7 @@ export function Menu() {
             </ListItemIcon>
             <ListItemText
               primary="Group"
-              onClick={redirectTo("/manage-tasks")}
+              onClick={redirectTo("/group")}
             />
           </ListItem>
 
@@ -142,6 +142,13 @@ export function Menu() {
               primary="Settings"
               onClick={redirectTo("/settings")}
             />
+          </ListItem>
+
+          <ListItem button>
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="Log out" onClick={redirectTo("/logout")} />
           </ListItem>
 
           {/* {["All mail", "Trash", "Spam"].map((text, index) => (

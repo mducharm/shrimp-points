@@ -17,6 +17,11 @@ export const StateContext = createContext<State>({} as State);
 export const DispatchContext = createContext<Dispatch<Action>>({} as Dispatch<Action>);
 
 export function Store({ children }: Props) {
+  const authToken = localStorage.getItem("auth");
+  if (authToken != null) {
+    initialState.authToken = authToken;
+    initialState.isLoggedIn = true;
+  }
   const [state, dispatch] = useReducer(storeReducer, initialState);
   return (
     <StateContext.Provider value={state}>

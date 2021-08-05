@@ -20,8 +20,10 @@ export type Action =
 export function storeReducer(state: State, action: Action): State {
     switch (action.type) {
         case ActionKind.LOGIN:
+            localStorage.setItem("auth", action.authToken);
             return { ...state, isLoggedIn: true, authToken: action.authToken }
         case ActionKind.LOGOUT:
+            localStorage.setItem("auth", "");
             return { ...state, isLoggedIn: false, authToken: "" }
         default:
             throw new Error("Invalid action.");
