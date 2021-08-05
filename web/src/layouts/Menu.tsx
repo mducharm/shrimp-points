@@ -15,13 +15,16 @@ import {
   Toolbar,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { ReactNode } from "react";
 import { useState } from "react";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
-import { Link, Redirect } from "react-router-dom";
-import { DashboardOutlined } from "@material-ui/icons";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { AccountCircle, DashboardOutlined } from "@material-ui/icons";
 import MenuIcon from "@material-ui/icons/Menu";
+import AssignmentIcon from "@material-ui/icons/Assignment";
+import GroupIcon from "@material-ui/icons/Group";
+import SettingsIcon from "@material-ui/icons/Settings";
 
 type ToggleDrawer = (open: boolean) => (event: any) => void;
 
@@ -36,12 +39,13 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
-  }),
+  })
 );
 
 export function Menu() {
   const [isOpen, setState] = useState(false);
   const classes = useStyles();
+  const history = useHistory();
 
   const toggleDrawer: ToggleDrawer =
     (open) =>
@@ -57,15 +61,11 @@ export function Menu() {
       setState(open);
     };
 
-  const [redirect, setRedirect] = useState("");
-  const redirectTo = (path: string) => (e: any) => setRedirect(path);
-
-  if (redirect)
-    return <Redirect push to={redirect} />
+  const redirectTo = (path: string) => (e: any) => history.push(path);
 
   return (
     <>
-     <AppBar position="static">
+      <AppBar position="static">
         <Toolbar>
           <IconButton
             edge="start"
@@ -88,7 +88,7 @@ export function Menu() {
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
       >
-        <List>
+        {/* <List>
           {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
@@ -98,34 +98,60 @@ export function Menu() {
             </ListItem>
           ))}
         </List>
-        <Divider />
+        <Divider /> */}
         <List>
-        <ListItem button>
+          <ListItem button>
             <ListItemIcon>
               <DashboardOutlined />
             </ListItemIcon>
-            <ListItemText
-              primary="Dashboard"
-              onClick={redirectTo("/dashboard")}
-            />
+            <ListItemText primary="Dashboard" onClick={redirectTo("/")} />
           </ListItem>
+
           <ListItem button>
             <ListItemIcon>
-              <InboxIcon />
+              <AssignmentIcon />
             </ListItemIcon>
             <ListItemText
-              primary="Home"
-              onClick={redirectTo("/home")}
+              primary="Tasks"
+              onClick={redirectTo("/manage-tasks")}
             />
           </ListItem>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
+
+          <ListItem button>
+            <ListItemIcon>
+              <GroupIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Group"
+              onClick={redirectTo("/manage-tasks")}
+            />
+          </ListItem>
+
+          <ListItem button>
+            <ListItemIcon>
+              <AccountCircle />
+            </ListItemIcon>
+            <ListItemText primary="Profile" onClick={redirectTo("/profile")} />
+          </ListItem>
+
+          <ListItem button>
+            <ListItemIcon>
+              <SettingsIcon />
+            </ListItemIcon>
+            <ListItemText
+              primary="Settings"
+              onClick={redirectTo("/settings")}
+            />
+          </ListItem>
+
+          {/* {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
-          ))}
+          ))} */}
         </List>
       </SwipeableDrawer>
     </>
