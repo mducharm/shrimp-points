@@ -77,7 +77,7 @@ export default function Login() {
 
   if (data?.authenticate?.jwtToken != null) {
     dispatch({ type: ActionKind.LOGIN, authToken: data.authenticate.jwtToken });
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/" />;
   }
 
   const failedLogin = (error || data?.authenticate?.jwtToken == null) && loginAttempted;

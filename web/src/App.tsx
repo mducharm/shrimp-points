@@ -8,7 +8,7 @@ import {
   Link,
   Redirect,
 } from "react-router-dom";
-import Home from "./pages/Home";
+import Landing from "./pages/Landing";
 import About from "./pages/About";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -69,7 +69,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <nav>
+        {/* <nav>
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -79,7 +79,7 @@ function App() {
             </li>
             {state.isLoggedIn ? <LoggedInLinks /> : <AnonymousLinks />}
           </ul>
-        </nav>
+        </nav> */}
         <Switch>
           <Route path="/register">
             <Register />
@@ -89,9 +89,6 @@ function App() {
           </Route>
           <Route path="/logout">
             <Logout />
-          </Route>
-          <Route path="/dashboard">
-            {state.isLoggedIn ? <Dashboard /> : <Redirect to="login" />}
           </Route>
           <Route path="/manage-tasks">
             {state.isLoggedIn ? <ManageTasksForm /> : <Redirect to="login" />}
@@ -109,7 +106,7 @@ function App() {
             <About />
           </Route>
           <Route path="/">
-            <Home />
+            {state.isLoggedIn ? <Dashboard /> : <Landing />}
           </Route>
         </Switch>
       </div>
