@@ -9,7 +9,7 @@ alter default privileges revoke execute on functions from public;
 
 
 /* Roles */
-create role sp_postgraphile login password 'change_this';
+create role sp_postgraphile login password 'change_me';
 
 create role sp_anon;
 grant sp_anon to sp_postgraphile;

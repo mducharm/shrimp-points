@@ -22,9 +22,17 @@ create policy select_task_completed on app_public.task_completed for select usin
 
 -- * insert
 create policy insert_group on app_public.group for insert to sp_person
+    with check(not exists(select 1 from app_public.group where created_by = app_public.current_person_id()));
+
+create policy insert_group_invite on app_public.group_invite for insert to sp_person
+    with check(
+        exists(select 1 from app_public.group as g
+                    where g.created_by = app_public.current_person_id()
+                    and group_id = id));
+
+create policy insert_task on app_public.task for insert to sp_person
     with check(created_by = app_public.current_person_id()
         and exists(select 1 from app_public.group where created_by = app_public.current_person_id()));
-
 
 -- * update
 create policy update_person on app_public.person for update to sp_person
