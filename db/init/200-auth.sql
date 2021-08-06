@@ -70,3 +70,15 @@ create function app_public.current_person_id() returns integer as $$
 $$ language sql stable;
 
 comment on function app_public.current_person_id() is 'Gets id of person identified in JWT.';
+
+
+create function app_private.set_created_by() returns trigger as $$
+    begin 
+        new.created_by := app_public.current_person_id();
+        return new;
+    end;
+$$ language plpgsql;
+
+create trigger group_created_by before insert on app_public.group for each row execute procedure app_private.set_created_by();
+create trigger task_created_by before insert on app_public.task for each row execute procedure app_private.set_created_by();
+create trigger group_invite_from before insert on app_public.group_invite for each row execute procedure app_private.set_created_by();
