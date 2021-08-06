@@ -11,8 +11,7 @@ create type app_public.jwt_token as (
 
 -- * Register
 create function app_public.register_person(
-    first_name text,
-    last_name text,
+    display_name text,
     email text,
     password text
 )
@@ -20,9 +19,9 @@ returns app_public.person as $$
     declare person app_public.person;
     begin
         insert into app_public.person 
-            (first_name, last_name)
+            (display_name)
         values
-            (first_name, last_name)
+            (display_name)
         returning * into person;
 
         insert into app_private.account

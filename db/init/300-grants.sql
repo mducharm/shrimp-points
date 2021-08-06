@@ -30,4 +30,4 @@ grant execute on function app_public.authenticate(text, text) to sp_anon, sp_per
 grant execute on function app_public.current_person() to sp_anon, sp_person;
 grant execute on function app_public.current_person_id() to sp_anon, sp_person;
 
-grant execute on function app_public.register_person(text, text, text, text) to sp_anon;
+grant execute on function app_public.register_person(text, text, text) to sp_anon;
