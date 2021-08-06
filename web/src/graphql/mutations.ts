@@ -28,3 +28,13 @@ export const REGISTER = gql`
   }
 }
 `;
+export const CREATE_GROUP = gql`
+  mutation CreateGroup($groupName: String!) {
+    createGroup(input: {group: {name: $groupName}}) {
+      group {
+        id
+      }
+    }
+  }
+`;
+
