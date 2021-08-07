@@ -12,6 +12,7 @@ alter table app_public.task_completed enable row level security;
 
 -- * select
 create policy select_person on app_public.person for select using (true);
+create policy select_person_group on app_public.person_group for select using (true);
 create policy select_group on app_public.group for select using (true);
 create policy select_group_invite on app_public.group_invite for select using (true);
 create policy select_feed_entry on app_public.feed_entry for select using (true);

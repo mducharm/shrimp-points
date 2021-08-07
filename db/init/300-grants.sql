@@ -10,6 +10,10 @@ grant select on table app_public.group to sp_anon, sp_person;
 grant insert, update, delete on table app_public.group to sp_person;
 grant usage on sequence app_public.group_id_seq to sp_person;
 
+grant select on table app_public.person_group to sp_anon, sp_person;
+grant insert, update, delete on table app_public.person_group to sp_person;
+--grant usage on sequence app_public.person_group_id_seq to sp_person;
+
 grant select on table app_public.group_invite to sp_anon, sp_person;
 grant insert, update, delete on table app_public.group_invite to sp_person;
 grant usage on sequence app_public.group_invite_id_seq to sp_person;
