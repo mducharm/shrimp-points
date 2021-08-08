@@ -17,7 +17,9 @@ import {
   Theme,
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore, StarBorder } from "@material-ui/icons";
+import { Autocomplete } from "@material-ui/lab";
 import React, { useState } from "react";
+import SendInvite from "../components/SendInvite";
 import {
   CREATE_GROUP,
   SET_ACTIVE_GROUP as SET_ACTIVE_GROUP,
@@ -100,32 +102,7 @@ export function Group() {
         </>
       )}
 
-      <>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="sendinvite"
-          label="Send Invite"
-          name="sendinvite"
-          autoComplete="person"
-          autoFocus
-          onChange={(e) =>
-            groupManager.sendInvite({
-              variables: { toPersonId: e.target.value },
-            })
-          }
-        />
-        <Button
-          onClick={() => {
-            groupManager.createGroup();
-            groupManager.refetch();
-          }}
-        >
-          Send Invite
-        </Button>
-      </>
+      <SendInvite />
 
       <>
         <InputLabel id="demo-simple-select-filled-label">
@@ -147,11 +124,12 @@ export function Group() {
             }
           }}
         >
-          {groups && groups.map((g: any) => (
-            <MenuItem key={g.groupId} value={g.groupId}>
-              {g.groupName}
-            </MenuItem>
-          ))}
+          {groups &&
+            groups.map((g: any) => (
+              <MenuItem key={g.groupId} value={g.groupId}>
+                {g.groupName}
+              </MenuItem>
+            ))}
         </Select>
       </>
 
@@ -171,11 +149,11 @@ export function Group() {
           </ListItem>
         ))}
 
-        {activeGroup.pendingInvites.map((m: Person) => (
+        {/* {activeGroup?.pendingInvites?.map((m: Person) => (
           <ListItem key={m.displayName} button onClick={() => {}}>
             <ListItemText primary={m.displayName + "- pending"} />
           </ListItem>
-        ))}
+        ))} */}
       </List>
 
       <div>
