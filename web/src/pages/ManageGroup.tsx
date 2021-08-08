@@ -120,8 +120,7 @@ export function Group() {
             }
           }}
         >
-          {groups &&
-            groups?.map((g: any) => (
+          {groups.map((g: any) => (
               <MenuItem key={g.groupId} value={g.groupId}>
                 {g.groupName}
               </MenuItem>
@@ -139,12 +138,11 @@ export function Group() {
         }
         className={classes.root}
       >
-        {activeGroup &&
-          activeGroup?.members?.map((m: any) => (
-            <ListItem key={m} button onClick={() => {}}>
-              <ListItemText primary={m} />
-            </ListItem>
-          ))}
+        {activeGroup.members.map((m: any) => (
+          <ListItem key={m.displayName} button onClick={() => {}}>
+            <ListItemText primary={m.displayName} />
+          </ListItem>
+        ))}
       </List>
 
       <div>
