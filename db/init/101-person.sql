@@ -6,7 +6,8 @@ create table if not exists app_public.person (
     about text,
     active_group integer,
     created_at timestamp default now(),
-    updated_at timestamp default now() 
+    updated_at timestamp default now(),
+    unique(display_name) 
 );
 
 comment on table app_public.person is 'A user of the forum.';
