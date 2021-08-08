@@ -35,3 +35,5 @@ grant execute on function app_public.current_person() to sp_anon, sp_person;
 grant execute on function app_public.current_person_id() to sp_anon, sp_person;
 
 grant execute on function app_public.register_person(text, text, text) to sp_anon;
+
+grant execute on function app_public.search_people(text) to sp_person;
