@@ -4,6 +4,7 @@ create table if not exists app_public.person (
     id serial primary key,
     display_name text not null check (char_length(display_name) < 80),
     about text,
+    active_group integer,
     created_at timestamp default now(),
     updated_at timestamp default now() 
 );
