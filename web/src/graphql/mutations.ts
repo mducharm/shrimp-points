@@ -28,6 +28,7 @@ export const REGISTER = gql`
   }
 }
 `;
+
 export const CREATE_GROUP = gql`
   mutation CreateGroup($groupName: String!) {
     createGroup(input: {group: {name: $groupName}}) {
@@ -36,5 +37,16 @@ export const CREATE_GROUP = gql`
       }
     }
   }
+`;
+
+export const SET_ACTIVE_GROUP = gql`
+ mutation SetActiveGroup($activeGroup: Int!, $nodeId: Int!) {
+  updatePerson(input: {personPatch: {activeGroup: $activeGroup}, nodeId: $activeGroup}) {
+    person {
+      id
+    }
+  }
+}
+
 `;
 
