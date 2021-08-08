@@ -54,3 +54,14 @@ export const GET_GROUPS = gql`
     }
   }
 `;
+
+export const SEARCH_PEOPLE = gql`
+  query SearchPeople($search: String!) {
+    searchPeople(search: $search, first: 10) {
+      nodes {
+        displayName
+        id
+      }
+    }
+  }
+`;
