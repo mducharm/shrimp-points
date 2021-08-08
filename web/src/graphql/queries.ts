@@ -18,3 +18,31 @@ query people {
     }
   }
 `;
+
+
+export const GET_GROUPS = gql`
+
+query GetGroups {
+  currentPerson {
+    displayName
+    id
+    activeGroup
+    personGroupsByPersonId {
+      nodes {
+        groupByGroupId {
+          id
+          name
+          createdBy
+          personGroupsByGroupId {
+            nodes {
+              personByPersonId {
+                displayName
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+`;
