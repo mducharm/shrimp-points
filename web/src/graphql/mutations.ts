@@ -50,3 +50,14 @@ export const SET_ACTIVE_GROUP = gql`
 
 `;
 
+
+export const SEND_INVITE = gql`
+  mutation SendInvite {
+    createGroupInvite(input: {groupInvite: {toPersonId: 2, groupId: 3}}) {
+      groupInvite {
+        id
+      }
+    }
+  }
+`;
+
