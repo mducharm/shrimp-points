@@ -1,15 +1,17 @@
 import { useQuery, useMutation } from "@apollo/client";
-import { CREATE_GROUP, SET_ACTIVE_GROUP } from "../graphql/mutations";
+import { CREATE_GROUP, SEND_INVITE, SET_ACTIVE_GROUP } from "../graphql/mutations";
 import { GET_GROUPS } from "../graphql/queries";
 import { defaultMutationOptions } from "../helper";
 
 export type Person = {
   displayName: string;
+  id: number;
 }
 export type Group = {
   groupName: string;
   groupId: number;
   members: Person[];
+  pendingInvites: Person[];
 }
 
 export function useGroupManager() {
@@ -24,6 +26,8 @@ export function useGroupManager() {
     defaultMutationOptions
   );
 
+  const [sendInvite, sendInviteResult] = useMutation(SEND_INVITE, defaultMutationOptions)
+
   const groups: Group[] =
     data &&
     !(loading || error) &&
@@ -34,6 +38,10 @@ export function useGroupManager() {
         g?.groupByGroupId.personGroupsByGroupId?.nodes?.map(
           (p: any) => p.personByPersonId
         ) ?? [],
+      pendingInvites:
+        g?.groupByGroupId.groupInvitesByGroupId?.nodes?.map(
+          (p: any) => p.personByPersonId
+        ) ?? [],
     })) ?? []);
 
   let currentPersonId: number = data?.currentPerson?.id ?? 0;
@@ -42,7 +50,7 @@ export function useGroupManager() {
     data?.currentPerson?.activeGroup ?? (groups ? groups[0]?.groupId : 0);
 
   let activeGroup: Group = groups?.find((g: any) => g.groupId === activeGroupId)
-    ?? { groupId: 0, groupName: "", members: [] }
+    ?? { groupId: 0, groupName: "", members: [], pendingInvites: [] }
 
   let canCreateGroup: boolean =
     !(loading || error) &&
@@ -65,5 +73,7 @@ export function useGroupManager() {
     activeGroupId,
     setActiveGroup,
     setActiveGroupResult,
+    sendInvite, 
+    sendInviteResult,
   };
 }

@@ -24,7 +24,7 @@ import {
 } from "../graphql/mutations";
 import { GET_GROUPS } from "../graphql/queries";
 import { defaultMutationOptions } from "../helper";
-import { useGroupManager } from "../hooks/useGroupManager";
+import { Person, useGroupManager } from "../hooks/useGroupManager";
 import Main from "../layouts/Main";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -101,6 +101,33 @@ export function Group() {
       )}
 
       <>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="sendinvite"
+          label="Send Invite"
+          name="sendinvite"
+          autoComplete="person"
+          autoFocus
+          onChange={(e) =>
+            groupManager.sendInvite({
+              variables: { toPersonId: e.target.value },
+            })
+          }
+        />
+        <Button
+          onClick={() => {
+            groupManager.createGroup();
+            groupManager.refetch();
+          }}
+        >
+          Send Invite
+        </Button>
+      </>
+
+      <>
         <InputLabel id="demo-simple-select-filled-label">
           Active Group
         </InputLabel>
@@ -120,11 +147,11 @@ export function Group() {
             }
           }}
         >
-          {groups.map((g: any) => (
-              <MenuItem key={g.groupId} value={g.groupId}>
-                {g.groupName}
-              </MenuItem>
-            ))}
+          {groups && groups.map((g: any) => (
+            <MenuItem key={g.groupId} value={g.groupId}>
+              {g.groupName}
+            </MenuItem>
+          ))}
         </Select>
       </>
 
@@ -138,9 +165,15 @@ export function Group() {
         }
         className={classes.root}
       >
-        {activeGroup.members.map((m: any) => (
+        {activeGroup.members.map((m: Person) => (
           <ListItem key={m.displayName} button onClick={() => {}}>
             <ListItemText primary={m.displayName} />
+          </ListItem>
+        ))}
+
+        {activeGroup.pendingInvites.map((m: Person) => (
+          <ListItem key={m.displayName} button onClick={() => {}}>
+            <ListItemText primary={m.displayName + "- pending"} />
           </ListItem>
         ))}
       </List>
