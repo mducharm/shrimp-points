@@ -4,7 +4,7 @@ create table if not exists app_public.group_invite (
    id serial primary key,
    group_id integer references app_public.group,
    to_person_id integer references app_public.person,
-   from_person_id integer references app_public.person,
+   created_by integer references app_public.person,
    created_at timestamp default now(),
    updated_at timestamp default now()
 );
