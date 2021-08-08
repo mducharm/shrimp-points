@@ -109,8 +109,8 @@ export default function Register() {
 
   if (data) {
     login();
-    if (authData) {
-      dispatch({ type: ActionKind.LOGIN, authToken: authData });
+    if (authData?.authenticate?.jwtToken != null) {
+      dispatch({ type: ActionKind.LOGIN, authToken:  authData.authenticate.jwtToken });
       history.push("/");
     }
   }
