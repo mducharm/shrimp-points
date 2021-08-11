@@ -1,11 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { TextField, Button } from "@material-ui/core";
 import { Autocomplete } from "@material-ui/lab";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { SEND_INVITE } from "../graphql/mutations";
 import { SEARCH_PEOPLE } from "../graphql/queries";
 import { defaultMutationOptions } from "../helper";
 import { Person } from "../hooks/useGroupManager";
+import { debounce } from "lodash";
 
 function SendInvite() {
   const [search, setSearchText] = useState("");
@@ -16,13 +17,7 @@ function SendInvite() {
   });
   //   const { loading, error, data } = useQuery(SEND_INVITE);
 
-  useEffect(() => {
-    refetch();
-  }, [search]);
-
-  // useEffect(() => {
-  //   console.log(person);
-  // }, [person]);
+  const debouncedRefetch = useCallback(debounce(refetch, 1000), [search]);
 
   let people = data?.searchPeople?.nodes ?? [];
 
@@ -34,6 +29,7 @@ function SendInvite() {
         getOptionLabel={(option: any) => option.displayName}
         style={{ width: 300 }}
         onInputChange={(event: any, value: string) => {
+          if (!!value && value !== search) debouncedRefetch();
           setSearchText(value);
         }}
         inputValue={search}
@@ -41,11 +37,9 @@ function SendInvite() {
         onChange={(event: any, newValue: Person | null) => {
           if (newValue) setPerson(newValue);
         }}
-        getOptionSelected={(option, value) =>
-          value != null &&
-          option.displayName === value.displayName &&
-          option.id === value.id
-        }
+        getOptionSelected={(option, value) => {
+          return value != null && option?.id === value?.id;
+        }}
         renderInput={(params: any) => {
           return <TextField {...params} label="User" variant="outlined" />;
         }}
