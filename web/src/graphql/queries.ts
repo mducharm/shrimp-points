@@ -21,11 +21,20 @@ query people {
 
 
 export const GET_GROUPS = gql`
-  query GetGroups {
+query GetGroups {
     currentPerson {
       displayName
       id
       activeGroup
+      groupInvitesByToPersonId {
+        nodes {
+          createdBy
+          groupByGroupId {
+            id
+            name
+          }
+        } 
+      }
       personGroupsByPersonId {
         nodes {
           groupByGroupId {
