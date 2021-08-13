@@ -25,7 +25,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import GroupIcon from "@material-ui/icons/Group";
 import SettingsIcon from "@material-ui/icons/Settings";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useStore } from "../store/store";
+import { ActionKind } from "../store/actions";
+import { useQuery } from "@apollo/client";
+import { AUTHENTICATE } from "../graphql/mutations";
+import { GET_GROUPS } from "../graphql/queries";
 
 type ToggleDrawer = (open: boolean) => (event: any) => void;
 
@@ -47,6 +52,8 @@ export function Menu() {
   const [isOpen, setState] = useState(false);
   const classes = useStyles();
   const history = useHistory();
+  const { dispatch } = useStore();
+  const { client } = useQuery(GET_GROUPS);
 
   const toggleDrawer: ToggleDrawer =
     (open) =>
@@ -63,6 +70,12 @@ export function Menu() {
     };
 
   const redirectTo = (path: string) => (e: any) => history.push(path);
+
+  const logOut = (e: any) => {
+    dispatch({ type: ActionKind.LOGOUT });
+    history.push("/logout");
+    client.clearStore();
+  };
 
   return (
     <>
@@ -121,10 +134,7 @@ export function Menu() {
             <ListItemIcon>
               <GroupIcon />
             </ListItemIcon>
-            <ListItemText
-              primary="Group"
-              onClick={redirectTo("/group")}
-            />
+            <ListItemText primary="Group" onClick={redirectTo("/group")} />
           </ListItem>
 
           <ListItem button>
@@ -148,7 +158,7 @@ export function Menu() {
             <ListItemIcon>
               <ExitToAppIcon />
             </ListItemIcon>
-            <ListItemText primary="Log out" onClick={redirectTo("/logout")} />
+            <ListItemText primary="Log out" onClick={logOut} />
           </ListItem>
 
           {/* {["All mail", "Trash", "Spam"].map((text, index) => (
