@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "@apollo/client";
-import { CREATE_GROUP, SEND_INVITE, SET_ACTIVE_GROUP } from "../graphql/mutations";
+import { ReactNode } from "react";
+import { CANCEL_INVITE, CREATE_GROUP, SEND_INVITE, SET_ACTIVE_GROUP } from "../graphql/mutations";
 import { GET_GROUPS } from "../graphql/queries";
 import { defaultMutationOptions } from "../helper";
 
@@ -18,6 +19,11 @@ export type Invite = {
   groupName: string;
 }
 
+type TaggedState<T extends string> = T;
+
+export type NoGroupWithInvites = TaggedState<"NoGroupWithInvites">;
+export type NoGroup = TaggedState<"NoGroup">;
+export type HasCreatedGroup = TaggedState<"HasCreatedGroup">;
 
 export function useGroupManager() {
   const { loading, error, data, refetch } = useQuery(GET_GROUPS);
@@ -32,6 +38,7 @@ export function useGroupManager() {
   );
 
   const [sendInvite, sendInviteResult] = useMutation(SEND_INVITE, defaultMutationOptions)
+  const [cancelInvite, cancelInviteResult] = useMutation(CANCEL_INVITE, defaultMutationOptions)
 
   const groups: Group[] =
     data &&
@@ -57,7 +64,7 @@ export function useGroupManager() {
     }))
 
   const hasInvites = invites.length > 0 ?? false;
-  
+
   let currentPersonId: number = data?.currentPerson?.id ?? 0;
 
   let activeGroupId: number =
@@ -87,10 +94,12 @@ export function useGroupManager() {
     activeGroupId,
     setActiveGroup,
     setActiveGroupResult,
-    sendInvite, 
+    sendInvite,
     sendInviteResult,
     isInGroup,
     invites,
     hasInvites,
+    cancelInvite, 
+    cancelInviteResult
   };
 }

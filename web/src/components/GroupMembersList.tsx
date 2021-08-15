@@ -11,9 +11,10 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 type GroupMembersListProps = {
   group: Group;
+  handleInviteCancel: (toPersonId: number, groupId: number) => Promise<any>;
 };
 
-function GroupMembersList({ group }: GroupMembersListProps) {
+function GroupMembersList({ group, handleInviteCancel }: GroupMembersListProps) {
   const membersPendingInvite = group?.pendingInvites ?? [];
   useEffect(() => {
     console.log(group);
@@ -42,6 +43,7 @@ function GroupMembersList({ group }: GroupMembersListProps) {
             <CancelIcon onClick={e => {
               if (window.confirm("Are you sure you wish to cancel this invite?")) {
                 console.log("cancel invite");
+                handleInviteCancel(m.id, group.groupId);
               }
             }}></CancelIcon>
           </ListItem>

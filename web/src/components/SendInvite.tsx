@@ -19,7 +19,7 @@ import { Person } from "../hooks/useGroupManager";
 import { debounce } from "lodash";
 
 type SendInviteProps = {
-  handleSendInvite: (toPersonId: number) => Promise;
+  handleSendInvite: (toPersonId: number) => Promise<any>;
 };
 
 function SendInvite(props: SendInviteProps) {

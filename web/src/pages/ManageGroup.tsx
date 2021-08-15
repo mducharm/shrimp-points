@@ -61,6 +61,7 @@ export function ManageGroup() {
     invites,
     sendInvite,
     sendInviteResult,
+    cancelInvite,
   } = groupManager;
 
   // if (groupManager.data) {
@@ -81,7 +82,14 @@ export function ManageGroup() {
       <Main>
         <Grid container>
           <Grid item xs={12}>
-            <GroupMembersList group={activeGroup}></GroupMembersList>
+            <GroupMembersList
+              group={activeGroup}
+              handleInviteCancel={(toPerson: number, groupId: number) => {
+                return cancelInvite({ variables: {
+                  
+                }})
+              }}
+            ></GroupMembersList>
           </Grid>
 
           <Grid item xs={12}>
@@ -93,7 +101,7 @@ export function ManageGroup() {
                     groupId: activeGroupId,
                     toPersonId: toPerson,
                   },
-                }).then(e => refetch())
+                }).then((e) => refetch())
               }
             ></SendInvite>
           </Grid>
