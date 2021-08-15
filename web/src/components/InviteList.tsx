@@ -15,6 +15,8 @@ import {
   MenuItem,
   Select,
 } from "@material-ui/core";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import CancelIcon from "@material-ui/icons/Cancel";
 import React, { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import { Group, Invite, Person } from "../hooks/useGroupManager";
 
@@ -39,9 +41,17 @@ function InviteList(props: InviteListProps) {
       >
         {invites.map((invite: Invite) => (
           <ListItem key={invite.groupName} button>
+            <CancelIcon
+              onClick={(e) => {
+                if (window.confirm("Are you sure you wish to decline this invite?")) {
+                  console.log("decline invite");
+                }
+              }}
+            ></CancelIcon>
             <ListItemText
               primary={`${invite.groupName} - from ${invite.from.displayName}`}
             />
+            <CheckCircleIcon></CheckCircleIcon>
           </ListItem>
         ))}
       </List>
