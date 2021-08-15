@@ -53,8 +53,10 @@ export const SET_ACTIVE_GROUP = gql`
 
 
 export const SEND_INVITE = gql`
-  mutation SendInvite {
-    createGroupInvite(input: {groupInvite: {toPersonId: 2, groupId: 3}}) {
+  mutation CreateGroupInvite ($createdBy: Int!, $groupId: Int!, $toPersonId: Int!) {
+    createGroupInvite(
+      input: {groupInvite: {createdBy: $createdBy, groupId: $groupId, toPersonId: $toPersonId}}
+    ) {
       groupInvite {
         id
       }

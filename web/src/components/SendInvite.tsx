@@ -18,7 +18,11 @@ import { defaultMutationOptions } from "../helper";
 import { Person } from "../hooks/useGroupManager";
 import { debounce } from "lodash";
 
-function SendInvite() {
+type SendInviteProps = {
+  handleSendInvite: (toPersonId: number) => Promise;
+};
+
+function SendInvite(props: SendInviteProps) {
   const [isModalOpen, setModalState] = useState(false);
   const [search, setSearchText] = useState("");
   const [person, setPerson] = useState<Person | null>(null);
@@ -27,7 +31,8 @@ function SendInvite() {
     ...defaultMutationOptions,
   });
   const classes = useStyles();
-  //   const { loading, error, data } = useQuery(SEND_INVITE);
+
+  const { handleSendInvite } = props;
 
   const debouncedRefetch = useCallback(debounce(refetch, 1000), [search]);
 
@@ -81,7 +86,15 @@ function SendInvite() {
               <Grid item xs={12} sm={6}>
                 <Button
                   onClick={(e) => {
-                    console.log(e);
+                    if (person == null) {
+                      alert("Invalid person selected");
+                    } else {
+                      handleSendInvite(person.id)
+                      .then((invite: any) => {
+                        alert("Successfully invited user.")
+                        setModalState(false);
+                      });
+                    }
                   }}
                 >
                   Send Invite

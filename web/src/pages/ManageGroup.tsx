@@ -42,11 +42,7 @@ import {
 } from "../graphql/mutations";
 import { GET_GROUPS } from "../graphql/queries";
 import { defaultMutationOptions } from "../helper";
-import {
-  Group,
-  Person,
-  useGroupManager,
-} from "../hooks/useGroupManager";
+import { Group, Person, useGroupManager } from "../hooks/useGroupManager";
 import Main from "../layouts/Main";
 
 export function ManageGroup() {
@@ -62,7 +58,9 @@ export function ManageGroup() {
     activeGroup,
     setActiveGroup,
     refetch,
-    invites
+    invites,
+    sendInvite,
+    sendInviteResult,
   } = groupManager;
 
   // if (groupManager.data) {
@@ -87,7 +85,17 @@ export function ManageGroup() {
           </Grid>
 
           <Grid item xs={12}>
-            <SendInvite></SendInvite>
+            <SendInvite
+              handleSendInvite={(toPerson: number) =>
+                sendInvite({
+                  variables: {
+                    createdBy: currentPersonId,
+                    groupId: activeGroupId,
+                    toPersonId: toPerson,
+                  },
+                }).then(e => refetch())
+              }
+            ></SendInvite>
           </Grid>
 
           <Grid item xs={12}>
