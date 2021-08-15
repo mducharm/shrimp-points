@@ -19,7 +19,7 @@ import { Settings } from "./pages/Settings";
 import { Dashboard } from "./pages/Dashboard";
 import { ManageTasksForm } from "./pages/ManageTasksForm";
 import { CompleteTaskForm } from "./pages/CompleteTasksForm";
-import { Group } from "./pages/ManageGroup";
+import { ManageGroup } from "./pages/ManageGroup";
 
 function LoggedInLinks() {
   return (
@@ -69,7 +69,6 @@ function App() {
   const { state } = useStore();
   return (
     <Router>
-      <div className="App">
         {/* <nav>
           <ul>
             <li>
@@ -95,7 +94,7 @@ function App() {
             {state.isLoggedIn ? <ManageTasksForm /> : <Redirect to="/login" />}
           </Route>
           <Route path="/group">
-            {state.isLoggedIn ? <Group /> : <Redirect to="/group" />}
+            {state.isLoggedIn ? <ManageGroup /> : <Redirect to="/group" />}
           </Route>
           <Route path="/complete-task">
             {state.isLoggedIn ? <CompleteTaskForm /> : <Redirect to="/login" />}
@@ -113,7 +112,6 @@ function App() {
             {state.isLoggedIn ? <Dashboard /> : <Landing />}
           </Route>
         </Switch>
-      </div>
     </Router>
   );
 }
