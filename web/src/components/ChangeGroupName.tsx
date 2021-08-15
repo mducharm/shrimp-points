@@ -43,21 +43,19 @@ function ChangeGroupName() {
         <Fade in={isModalOpen}>
           <div className={classes.paper}>
             <h2 id="transition-modal-title">Change Group Name</h2>
-            <p id="transition-modal-description">
-              <TextField
-                variant="outlined"
-                margin="normal"
-                required
-                fullWidth
-                id="group"
-                label="Group Name"
-                name="groupname"
-                autoComplete="group"
-                autoFocus
-                value={groupName}
-                onChange={(e) => setGroupName(e.target.value)}
-              />
-            </p>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="group"
+              label="Group Name"
+              name="groupname"
+              autoComplete="group"
+              autoFocus
+              value={groupName}
+              onChange={(e) => setGroupName(e.target.value)}
+            />
           </div>
         </Fade>
       </Modal>
