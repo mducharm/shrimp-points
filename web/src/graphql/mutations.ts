@@ -40,14 +40,15 @@ export const CREATE_GROUP = gql`
 `;
 
 export const SET_ACTIVE_GROUP = gql`
- mutation SetActiveGroup($activeGroup: Int!, $nodeId: Int!) {
-  updatePerson(input: {personPatch: {activeGroup: $activeGroup}, nodeId: $activeGroup}) {
-    person {
-      id
+  mutation SetActiveGroup ($personId: Int!, $activeGroup: Int!){
+    updatePersonById(input: {personPatch: {
+      activeGroup: $activeGroup
+    }, id: $personId}) {
+      person {
+        activeGroup
+      }
     }
   }
-}
-
 `;
 
 
