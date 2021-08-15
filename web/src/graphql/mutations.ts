@@ -64,3 +64,12 @@ export const SEND_INVITE = gql`
   }
 `;
 
+
+export const CANCEL_INVITE = gql`
+  mutation CancelInvite($toPersonId: Int!, $groupId: Int!) {
+    cancelInvite(input: {idOfGroup: $groupId, idOfPerson: $toPersonId}) {
+      boolean
+    }
+  }
+`;
+

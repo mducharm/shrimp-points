@@ -10,13 +10,13 @@ export const EXCHANGE_RATES: DocumentNode = gql`
 `;
 
 export const ALL_PEOPLE = gql`
-query people {
-    allPeople {
-      nodes {
-        displayName
+  query people {
+      allPeople {
+        nodes {
+          displayName
+        }
       }
     }
-  }
 `;
 
 
