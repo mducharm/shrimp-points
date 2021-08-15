@@ -28,7 +28,10 @@ query GetGroups {
       activeGroup
       groupInvitesByToPersonId {
         nodes {
-          createdBy
+          personByCreatedBy {
+            id
+            displayName
+          }
           groupByGroupId {
             id
             name
