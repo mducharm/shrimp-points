@@ -40,6 +40,12 @@ create policy insert_group_invite on app_public.group_invite for insert to sp_pe
                     where g.created_by = app_public.current_person_id()
                     and group_id = id));
 
+create policy delete_group_invite on app_public.group_invite for delete to sp_person
+    with check(
+        exists(select 1 from app_public.group as g
+                    where g.created_by = app_public.current_person_id()
+                    and group_id = id));
+
 create policy insert_task on app_public.task for insert to sp_person
     with check(created_by = app_public.current_person_id()
         and exists(select 1 from app_public.group where created_by = app_public.current_person_id()));
