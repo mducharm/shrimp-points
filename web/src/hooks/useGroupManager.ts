@@ -13,6 +13,11 @@ export type Group = {
   members: Person[];
   pendingInvites: Person[];
 }
+export type Invite = {
+  from: Person;
+  groupName: string;
+}
+
 
 export function useGroupManager() {
   const { loading, error, data, refetch } = useQuery(GET_GROUPS);
