@@ -34,6 +34,7 @@ import React, { useState } from "react";
 import ChangeGroupName from "../components/ChangeGroupName";
 import GroupMembersList from "../components/GroupMembersList";
 import GroupSelect from "../components/GroupSelect";
+import InviteList from "../components/InviteList";
 import SendInvite from "../components/SendInvite";
 import {
   CREATE_GROUP,
@@ -61,6 +62,7 @@ export function ManageGroup() {
     activeGroup,
     setActiveGroup,
     refetch,
+    invites
   } = groupManager;
 
   // if (groupManager.data) {
@@ -98,6 +100,10 @@ export function ManageGroup() {
               activeGroupId={activeGroupId}
               setActiveGroup={handleActiveGroupUpdate}
             ></GroupSelect>
+          </Grid>
+
+          <Grid item xs={12}>
+            <InviteList invites={invites}></InviteList>
           </Grid>
         </Grid>
       </Main>

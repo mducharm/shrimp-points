@@ -50,7 +50,13 @@ export function useGroupManager() {
     })) ?? []);
 
   const isInGroup = data?.currentPerson?.personGroupsByPersonId?.nodes?.length > 0 ?? false;
-  const hasInvites = data?.currentPerson?.groupInvitesByToPersonId?.nodes?.length > 0 ?? false;
+  const invites: Invite[] = (data?.currentPerson?.groupInvitesByToPersonId?.nodes ?? [])
+    .map((n: any) => ({
+      from: { displayName: n.personByCreatedBy.displayName, id: n.personByCreatedBy.id },
+      groupName: n.groupByGroupId.name
+    }))
+
+  const hasInvites = invites.length > 0 ?? false;
   
   let currentPersonId: number = data?.currentPerson?.id ?? 0;
 
@@ -84,6 +90,7 @@ export function useGroupManager() {
     sendInvite, 
     sendInviteResult,
     isInGroup,
+    invites,
     hasInvites,
   };
 }
