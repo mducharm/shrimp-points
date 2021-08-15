@@ -19,7 +19,10 @@ create policy select_person_group on app_public.person_group for select using (
 create policy select_group on app_public.group for select using (
     exists(select 1 from app_public.person_group pg 
         where pg.person_id = app_public.current_person_id() 
-        and pg.group_id = id));
+        and pg.group_id = id)
+    or exists(select 1 from app_public.group_invite gi 
+        where gi.to_person_id = app_public.current_person_id() 
+        and gi.group_id = id));
 create policy select_group_invite on app_public.group_invite for select using (true);
 create policy select_feed_entry on app_public.feed_entry for select using (true);
 create policy select_task on app_public.task for select using (true);
