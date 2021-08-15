@@ -44,7 +44,6 @@ import { defaultMutationOptions } from "../helper";
 import {
   Group,
   Person,
-  Reducer,
   useGroupManager,
 } from "../hooks/useGroupManager";
 import Main from "../layouts/Main";

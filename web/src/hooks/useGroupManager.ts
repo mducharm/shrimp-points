@@ -39,11 +39,14 @@ export function useGroupManager() {
           (p: any) => p.personByPersonId
         ) ?? [],
       pendingInvites:
-        g?.groupByGroupId.groupInvitesByGroupId?.nodes?.map(
-          (p: any) => p.personByPersonId
+        g?.groupByGroupId?.groupInvitesByGroupId?.nodes?.map(
+          (p: any) => p.personByToPersonId
         ) ?? [],
     })) ?? []);
 
+  const isInGroup = data?.currentPerson?.personGroupsByPersonId?.nodes?.length > 0 ?? false;
+  const hasInvites = data?.currentPerson?.groupInvitesByToPersonId?.nodes?.length > 0 ?? false;
+  
   let currentPersonId: number = data?.currentPerson?.id ?? 0;
 
   let activeGroupId: number =
@@ -75,5 +78,7 @@ export function useGroupManager() {
     setActiveGroupResult,
     sendInvite, 
     sendInviteResult,
+    isInGroup,
+    hasInvites,
   };
 }
